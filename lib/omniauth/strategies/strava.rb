@@ -1,5 +1,5 @@
 require 'omniauth-oauth2'
-require 'multi_json'
+require 'json'
 
 module OmniAuth
   module Strategies
@@ -58,7 +58,7 @@ module OmniAuth
       def athlete
         access_token.options[:mode] = :query
         access_token.options[:param_name] = :access_token
-        @athlete ||= MultiJson.load(access_token.get('/api/v3/athlete', { access_token: access_token.token }).body)
+        @athlete ||= JSON.parse(access_token.get('/api/v3/athlete', { access_token: access_token.token }).body)
       end
 
     end
